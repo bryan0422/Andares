@@ -151,35 +151,33 @@ A partir del reporte de defectos:
 
 ## 5. Entorno de Pruebas
 
-| Componente               | Descripción                                                                                  |
-|--------------------------|----------------------------------------------------------------------------------------------|
-| Dispositivos Android     | Android 10, Android 12, Android 14 (físicos o emuladores).                                   |
-| Dispositivos iOS         | iOS 14, iOS 16 (físicos o simuladores).                                                       |
-| Servidor QA              | `https://qa.andares.example.com` (base de datos, servicios REST).                            |
-| Servidor Producción      | `https://api.andares.example.com`                                                             |
-| Herramientas de prueba   | • Appium (para automatización móvil)  
-                            • Charles/Fiddler (monitoreo de tráfico)  
-                            • Postman (pruebas de API)  
-                            • Android Studio / Xcode (emuladores)                     |
-| Gestión de defectos      | Jira (proyecto “ANDARES-QA”)                                                                 |
-| Repositorio de código    | GitHub – rama `release/andares-vX.Y.Z`                                                        |
-| Build Automation         | Jenkins pipeline que genera APK/IPA por rama                                                  |
+| Componente               | Descripción                                                                                                   |
+|--------------------------|---------------------------------------------------------------------------------------------------------------|
+| Dispositivos Android     | Android 10, Android 12, Android 14 (físicos o emuladores).                                                    |
+| Dispositivos iOS         | iOS 14, iOS 16 (físicos o simuladores).                                                                       |
+| Servidor QA              | `https://qa.andares.example.com` (base de datos, servicios REST).                                             |
+| Servidor Producción      | `https://api.andares.example.com`                                                                              |
+| Herramientas de prueba   | • Appium (para automatización móvil)<br>• Charles/Fiddler (monitoreo de tráfico)<br>• Postman (pruebas de API)<br>• Android Studio / Xcode (emuladores) |
+| Gestión de defectos      | Jira (proyecto “ANDARES-QA”)                                                                                 |
+| Repositorio de código    | GitHub – rama `release/andares-vX.Y.Z`                                                                        |
+| Build Automation         | Jenkins pipeline que genera APK/IPA por rama                                                                   |
+
 
 ---
 
 ## 6. Cronograma de Pruebas (Ejemplo)
 
-| Fase                     | Actividad                                                                  | Duración Estimada |
-|--------------------------|----------------------------------------------------------------------------|-------------------|
-| Planificación            | Revisar reporte exploratorio; preparar casos de prueba; configurar entornos. | 2 días            |
+| Fase                     | Actividad                                                                   | Duración Estimada |
+|--------------------------|-----------------------------------------------------------------------------|-------------------|
+| Planificación            | Revisar reporte exploratorio; preparar casos de prueba; configurar entornos.| 2 días            |
 | Ejecución Inicial        | Pruebas funcionales sobre versión actual.                                   | 3 días            |
 | Análisis de Anomalías    | Registrar defectos críticos y altos; coordinar con Desarrollo correcciones. | 1 día             |
 | Ciclo de Regresión 1     | Validar fixes; volver a ejecutar flujos críticos.                           | 2 días            |
 | Pruebas de Compatibilidad| Ejecutar en dispositivos/OS distintos.                                      | 2 días            |
-| Pruebas de Rendimiento   | Medir tiempos de respuesta (búsquedas, mapas).                               | 1 día             |
-| Validación de Entornos   | Verificar apuntado a QA/Producción según build.                              | 1 día             |
-| Revisión Final           | Reporte final de estatus, lecciones aprendidas.                              | 1 día             |
-| **Total Aproximado**     | **~12 días hábiles**                                                          |                   |
+| Pruebas de Rendimiento   | Medir tiempos de respuesta (búsquedas, mapas).                              | 1 día             |
+| Validación de Entornos   | Verificar apuntado a QA/Producción según build.                             | 1 día             |
+| Revisión Final           | Reporte final de estatus, lecciones aprendidas.                             | 1 día             |
+| **Total Aproximado**     | **~12 días hábiles**                                                        |                   |
 
 > **Nota**: Los días pueden ajustarse según gravedad de defectos y disponibilidad de recursos.
 
@@ -187,19 +185,14 @@ A partir del reporte de defectos:
 
 ## 7. Riesgos y Mitigaciones
 
-| Riesgo                                                                          | Probabilidad | Impacto       | Mitigación                                                                                                                 |
-|---------------------------------------------------------------------------------|--------------|---------------|----------------------------------------------------------------------------------------------------------------------------|
-| La app apunta al **ambiente equivocado** (QA en producción, o viceversa)       | Media        | Crítico       | • Incluir pruebas automáticas que validen el endpoint en cada build.  
-                                                                                      • Configurar pipeline para fail build si URL maligna. |
-| **Defectos críticos no cubiertos** durante el testing exploratorio              | Baja-Media   | Alto          | • Priorizar pruebas automatizadas para flujos críticos (búsquedas, login, mapas).  
-                                                                                      • Revisar diariamente backlog de defectos. |
-| Incompatibilidad con el **nuevo SDK** (p. ej., errores de librerías de terceros) | Media        | Alto          | • Probar early build con SDK actualizado y revisar logs detallados.  
-                                                                                      • Mantener board con issues de integración. |
-| **Falta de datos de prueba** realistas                                           | Media        | Medio         | • Preparar dataset con tiendas, horarios y múltiples escenarios (sin imagen, con imagen, con datos corruptos).             |
-| **Sobrecarga de performance** al tener muchos usuarios simultáneos en mapas      | Baja         | Medio-Alto    | • Ejecutar pruebas de carga ligeras en “QA Performance” antes de liberación.                                               |
-| Usuarios finales pierden datos de perfil (imagen) tras update                     | Baja         | Medio-Alto    | • Probar migración de datos entre versiones en dispositivos reales.  
-                                                                                      • Validar backup/restauración de datos. |
-
+| Riesgo                                                                                       | Probabilidad | Impacto   | Mitigación                                                                                                                              |
+|----------------------------------------------------------------------------------------------|--------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| La app apunta al **ambiente equivocado** (QA en producción, o viceversa)                     | Media        | Crítico   | • Incluir pruebas automáticas que validen el endpoint en cada build.<br>• Configurar pipeline para fail build si la URL es incorrecta.   |
+| **Defectos críticos no cubiertos** durante el testing exploratorio                           | Baja-Media   | Alto      | • Priorizar pruebas automatizadas para flujos críticos (búsquedas, login, mapas).<br>• Revisar diariamente el backlog de defectos.         |
+| Incompatibilidad con el **nuevo SDK** (p. ej., errores de librerías de terceros)             | Media        | Alto      | • Probar early build con SDK actualizado y revisar logs detallados.<br>• Mantener un board con issues de integración.                     |
+| **Falta de datos de prueba** realistas                                                       | Media        | Medio     | • Preparar un dataset con tiendas, horarios y múltiples escenarios (sin imagen, con imagen, con datos corruptos).                          |
+| **Sobrecarga de performance** al tener muchos usuarios simultáneos en mapas                  | Baja         | Medio-Alto| • Ejecutar pruebas de carga ligeras en “QA Performance” antes de liberación.                                                                |
+| Usuarios finales pierden datos de perfil (imagen) tras update                                | Baja         | Medio-Alto| • Probar migración de datos entre versiones en dispositivos reales.<br>• Validar backup/restauración de datos.               |
 ---
 
 ## 8. Criterios de Entrada y Salida
